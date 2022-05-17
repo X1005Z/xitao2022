@@ -1,27 +1,22 @@
-# Vite+vue2项目模板
-## 介绍
-集成Vite、vue2、vueRouter、Vuex、sass项目开发模板
+## 课堂项目笔记
 
-注意：
-- 由于vue官网脚手架[vue-cli](https://cli.vuejs.org/zh/index.html)内置的构建工具webpack打包太慢，所以改为vite工具。
-- [vite](https://vitejs.cn/)官网脚手架初始化的项目是基于vue3，我们需要改为vue2。
+## 路由懒加载
+即点击路由才加载路由相应的代码片段！可以实现代码的分割功能，有利于提高网页性能
+```
+    {
+        path: "/register",
+        component: () => {
+            import('../views/Register.vue') // 返回Promise
+        }
+    }
+```
 
-## 使用
+## 项目页面构思
+1. 先不要着急写首页，务必先把整个项目先体验一下，看看页面和页面之间的关联、相同点、差异性！
+2. 根据页面和页面之间的关联、相同点、差异性！构思页面如何合理设计，布局！靠经验！
 
-1. 克隆
-地址：https://gitee.com/ww24kobe/vite-vue2-vueRouter-vuex-sass
-```
-git clone https://gitee.com/ww24kobe/vite-vue2-vueRouter-vuex-sass.git
-```
-> 仓库名太长，自己改名
+经过分析：
+1. 有三个主页面（一级页面）（tabbar页面）
+2. 其他页面就是二级页面，也可以称为非tabbar页面
 
-2. 进入项目目录，安装依赖，运行项目
-```
-npm install
-npm run dev
-```
-3. 打包项目,预览项目
-```
-npm run build
-npm run preview
-```
+如何实现：把上面三个主页面公共的tabbar定义在父组件中，此三个页面就是嵌套子路由
