@@ -22,10 +22,10 @@ export default {
     },
     watch: {
         '$route': {
-            handler: function(newRoute,oldRoute) {
+            handler: function (newRoute, oldRoute) {
                 // console.log(app-watch);
                 // 是主页则隐藏navbar，否则显示
-                let {isMainPage,title} = newRoute.meta;
+                let { isMainPage, title } = newRoute.meta;
                 this.title = title;
                 if (isMainPage) {
                     this.isShowNavbar = false;
@@ -40,10 +40,20 @@ export default {
 }
 </script>
 <style lang="scss">
+@import './assets/css/common.scss';
+
+html {
+    scroll-behavior: smooth;
+}
+
 .app {
     min-width: 320px;
     max-width: 750px;
     margin: 0 auto;
+}
+
+* {
+    box-sizing: border-box;
 }
 </style>
 
