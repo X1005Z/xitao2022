@@ -19,7 +19,7 @@
 
         <!-- 9宫格 -->
         <van-grid :column-num="4">
-            <van-grid-item v-for="item in gridData" :key="item.src">
+            <van-grid-item v-for="item in gridData" :key="item.src" :to="item.to">
                 <div class="my-grid-item">
                     <img :src="item.src" alt="">
                     <span class="text">{{ item.text }}</span>
@@ -31,16 +31,7 @@
         <van-divider>推荐商品</van-divider>
 
         <div class="goodslist">
-            <div class="item" v-for="item in goodsList" :key="item.id">
-                <div class="imgWrap flex_c_c">
-                    <img v-lazy="item.img_url" alt="">
-                </div>
-                <div class="title ellipsis_line_1">{{ item.title }}</div>
-                <div class="footer">
-                    <span class="price">&yen; {{ item.sell_price }}</span>
-                    <span class="buy">{{ item.buy }} 购买</span>
-                </div>
-            </div>
+            <Goods v-for="item in goodsList" :key="item.id" :data="item" @goodClick="clickHandle" />
         </div>
 
         <!-- backTop组件 -->
@@ -54,6 +45,7 @@
 import { fetchLunbo, fetchRecommendGoods } from '../api/home.js'
 
 // 导入组件
+import Goods from '../components/Goods.vue'
 import BackTop from '../components/BackTop.vue'
 import menu1 from '../assets/images/1.png'
 import menu2 from '../assets/images/2.png'
@@ -70,21 +62,22 @@ export default {
         return {
             lunboData: [],
             page: 1,
-            limit: 12,
+            limit: 10,
             gridData: [
-                { src: menu1, text: '喜淘超市' },
-                { src: menu3, text: '喜淘生鲜' },
-                { src: menu7, text: '领红包' },
-                { src: menu5, text: '领津贴' },
-                { src: menu2, text: '小新闻' },
-                { src: menu4, text: '喜淘缴费' },
-                { src: menu6, text: '签到领豆' },
-                { src: menu8, text: '更多' },
+                { src: menu1, text: '喜淘超市', to: "/goodslist" },
+                { src: menu3, text: '喜淘生鲜', to: "/goodslist" },
+                { src: menu7, text: '领红包', to: "/goodslist"  },
+                { src: menu5, text: '美妆好物', to: "/goodslist"  },
+                { src: menu2, text: '爆款', to: '/goodslist' },
+                { src: menu4, text: '喜淘缴费', to: "/goodslist"  },
+                { src: menu6, text: '签到领豆', to: "/goodslist"  },
+                { src: menu8, text: '更多', to: "/goodslist"  },
             ],
             goodsList: [],
         }
     },
     created() {
+        // 初始化轮播图数据和推荐商品
         this._fetchLunbo();
         this._fetchRecommendGoods();
     },
@@ -99,10 +92,17 @@ export default {
         async _fetchRecommendGoods() {
             let { message } = await fetchRecommendGoods(this.page, this.limit);
             this.goodsList = message;
+        },
+
+        // 点击推荐商品跳转
+        clickHandle({data}) {
+            // 跳转到商品详情页
+            this.$router.push(`/goodsDetail/${data.id}`);
         }
     },
     components: {
         BackTop,
+        Goods
     }
 }
 </script>
@@ -149,7 +149,7 @@ export default {
         .my-grid-item {
             display: flex;
             flex-direction: column;
-            justify-content: content;
+            justify-content: center;
             align-items: center;
 
             img {
@@ -167,49 +167,6 @@ export default {
         flex-wrap: wrap;
         justify-content: space-between;
         background: rgba(234, 231, 231, 0.368627451);
-
-        .item {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            width: 49%;
-            background-color: #fff;
-            padding: 6px;
-            border-radius: 4px;
-            margin-bottom: 6px;
-
-            .imgWrap {
-                height: 124px;
-                overflow: hidden;
-                width: 100%;
-
-                img {
-                    height: 100%;
-                }
-            }
-
-            .title {
-                padding: 10px 0;
-                color: #000;
-            }
-
-            .footer {
-                display: flex;
-                justify-content: space-between;
-
-                .price {
-                    color: #ff4142;
-                    font-size: 16px;
-                    font-weight: 700;
-                }
-
-                .buy {
-                    font-size: 12px;
-                    color: #999;
-                }
-            }
-        }
     }
 }
 </style> 

@@ -10,6 +10,9 @@ import './assets/css/normalize.css'
 // 导入路由模块
 import router from './router/index.js'
 
+// 导入nprogress的css样式
+import '../node_modules/nprogress/nprogress.css'
+
 new Vue({
   router,
   render: h => h(App)

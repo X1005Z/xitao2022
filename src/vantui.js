@@ -2,7 +2,7 @@ import Vue from 'vue';
 import 'vant/lib/index.css';
 
 import {
-    Button, Tabbar, TabbarItem, NavBar, Search, Swipe, SwipeItem, Toast, Sticky, Grid, GridItem, Divider, Lazyload
+    Button, Tabbar, TabbarItem, NavBar, Search, Swipe, SwipeItem, Toast, Sticky, Grid, GridItem, Divider, Lazyload, List, PullRefresh
 } from 'vant';
 
 Vue.use(Button);
@@ -22,4 +22,5 @@ Vue.use(Lazyload);
 Vue.use(Lazyload, {
     lazyComponent: true,
 });
-
+Vue.use(List);
+Vue.use(PullRefresh);

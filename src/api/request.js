@@ -4,7 +4,7 @@ import {Toast} from 'vant'
 
 // 创建axios实例，配置请求和响应拦截器
 const instance = axios.create({
-    baseURL: 'http://api.w0824.com/',
+    baseURL: 'http://api.w0824.com/api/',
     timeout: 10000,
 });
 
