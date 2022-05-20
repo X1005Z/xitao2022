@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <!-- navbar -->
-        <van-nav-bar :title="title" left-text="返回" right-text="按钮" v-show="isShowNavbar" @click-left="$router.back()"
+        <van-nav-bar :title="title" left-text="返回" v-show="isShowNavbar" @click-left="$router.back()"
             left-arrow>
         </van-nav-bar>
 

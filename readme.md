@@ -29,3 +29,8 @@
 3. 去控制结构的基本布局，对齐方式，横着排还是竖着拍
 4. 最后结构成型之后再去改样式，如字体大小，颜色内外边距
 5. 对象psd设计稿是否接近还原！！！
+
+## 电商的两个概念
+SPU（Standard Product Unit）：即产品。如iphone6
+
+SKU（Stock Keeping Unit）：商品（产品和规格（属性） 如iphone6 + 黑色、 iphone6 + 32G

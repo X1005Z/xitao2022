@@ -21,6 +21,8 @@
                 </div>
             </van-list>
         </van-pull-refresh>
+        <!-- backTop组件 -->
+        <BackTop :scrollTop="300" />
     </div>
 </template>
 
@@ -28,6 +30,8 @@
 // 导入api接口
 import { fetchGoodsList } from '../api/goodslist.js'
 import Goods from "../components/Goods.vue"
+import BackTop from '../components/BackTop.vue'
+
 export default {
     data() {
         return {
@@ -79,6 +83,7 @@ export default {
     },
     components: {
         Goods,
+        BackTop
     }
 }
 </script>
@@ -104,7 +109,7 @@ export default {
                 .market_price {
                     font-size: 12px;
                     color: #999;
-                    text-decoration: lin;
+                    text-decoration: line-through;
                 }
             }
 
