@@ -32,6 +32,7 @@ const router = new VueRouter({
                 path: 'shopcar',
                 component: Shopcar,
                 meta: {
+                    // title: '购物车',
                     name: 'Shopcar',
                     isMainPage: true,
                 }
@@ -44,7 +45,7 @@ const router = new VueRouter({
                     isMainPage: true
                 }
             }
-            ]
+        ]
         },
         {
             path: '/goodslist',
@@ -57,7 +58,7 @@ const router = new VueRouter({
             path: '/order',
             component: Order,
             meta: {
-                title: '我的订单'
+                title: '我的订单',
             }
         },
         {
@@ -66,7 +67,7 @@ const router = new VueRouter({
             meta: {
                 title: '商品详情'
             }
-        },
+        }
     ]
 })
 
@@ -74,13 +75,13 @@ NProgress.configure({
     showSpinner: false
 })
 
-router.beforeEach((to,from,next) => {
+router.beforeEach((to, from, next) => {
     // 开启网页加载进度条
     NProgress.start();
     next();
 })
 
-router.afterEach((to,from) => {
+router.afterEach((to, from) => {
     // 关闭网页加载进度条
     NProgress.done();
 })

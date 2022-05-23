@@ -43,8 +43,7 @@
         <!-- 商品导航 -->
         <van-goods-action>
             <van-goods-action-icon icon="chat-o" text="客服" color="#ee0a24" />
-            <van-goods-action-icon icon="cart-o" text="购物车" />
-            <!-- <van-goods-action-icon icon="star" text="收藏" color="#ff5000" /> -->
+            <van-goods-action-icon icon="cart-o" text="购物车" to="/home/shopcar" :badge="$store.getters.getCarTotalNumber" />
             <van-goods-action-button type="warning" text="加入购物车" @click="addCar(true)" />
             <van-goods-action-button type="danger" text="立即购买" @click="buy(false)" />
         </van-goods-action>
@@ -177,7 +176,15 @@ export default {
 
         // sku立即购买，跳转到购物车页面
         buyClicked(skuData) {
-            console.log('buyClicked:',skuData) 
+            // 将商品添加到购物车（vuex）
+            // 构造购物车商品数据结构
+            let {goodsId, selectedNum} = skuData;
+            let price = this.goodsInfo.sell_price;
+            let item = {id:goodsId,number:selectedNum,price:price,selected:true};
+            // 提交一个mutation
+            this.$store.commit('addGoodsToCar',item);
+            this.showSku = false;
+            this.$router.push('/home/shopcar');
         }
           
     },
@@ -191,7 +198,6 @@ export default {
 .goodsDetail-container {
     background: rgb(247, 246, 246);
     margin-bottom: 10px;
-
 
     .card {
         border-radius: 10px;

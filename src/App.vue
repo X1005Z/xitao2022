@@ -1,10 +1,8 @@
 <template>
     <div class="app">
         <!-- navbar -->
-        <van-nav-bar :title="title" left-text="返回" v-show="isShowNavbar" @click-left="$router.back()"
-            left-arrow>
+        <van-nav-bar :title="title" left-text="返回" v-show="isShowNavbar" @click-left="$router.back()" left-arrow>
         </van-nav-bar>
-
 
         <!-- 匹配根路由 -->
         <router-view></router-view>
@@ -39,6 +37,7 @@ export default {
     }
 }
 </script>
+
 <style lang="scss">
 @import './assets/css/common.scss';
 

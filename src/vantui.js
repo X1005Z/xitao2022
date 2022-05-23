@@ -3,6 +3,7 @@ import 'vant/lib/index.css';
 
 import {
     Button, Tabbar, TabbarItem, NavBar, Search, Swipe, SwipeItem, Toast, Sticky, Grid, GridItem, Divider, Lazyload, List, PullRefresh, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku,
+    Empty, SubmitBar, Card, Stepper, Checkbox, Image as VanImage, Icon, Cell, CellGroup, 
 } from 'vant';
 
 Vue.use(Button);
@@ -28,3 +29,12 @@ Vue.use(GoodsAction);
 Vue.use(GoodsActionButton);
 Vue.use(GoodsActionIcon);
 Vue.use(Sku);
+Vue.use(Empty);
+Vue.use(SubmitBar);
+Vue.use(Card);
+Vue.use(Stepper);
+Vue.use(Checkbox);
+Vue.use(VanImage);
+Vue.use(Icon);
+Vue.use(Cell);
+Vue.use(CellGroup);
