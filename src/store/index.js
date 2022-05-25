@@ -9,8 +9,33 @@ const store = new Vuex.Store({
     state: {
         // [{商品id， 选中状态，数量，价格},{}]
         carData: [],
+        token: '',
+        userInfo: {},
     },
     mutations: {
+        // 设置token
+        setToken(state, token) {
+            state.token = token;
+        },
+
+        // 设置用户信息
+        setUserInfo(state, userInfo) {
+            state.userInfo = userInfo;
+        },
+
+        // 清空购物车数据
+        clearUserInfo(state) {
+            state.token = '',
+            state.userInfo = '',
+            state.carData = []
+        },
+
+        // 更新用户头像
+        updateUserAvatar(state, src) {
+            state.userInfo.avatar = src;
+        },
+
+        // 添加商品到购物车
         addGoodsToCar(state, goods) {
             // console.log('addGoodsToCar',goods);
             // 加入购物车之前，判断是否有同id商品，
@@ -25,17 +50,12 @@ const store = new Vuex.Store({
             }
         },
 
-        // 清空购物车数据
-        clearcarData(state) {
-            state.carData = [];
-        },
-
         // 删除购物车商品
         delCartGoods(state, id) {
             state.carData = state.carData.filter(item => item.id !== id);
         },
 
-        // 设置购物车商品选中状态
+        // 更新购物车商品选中状态
         setGoodsSelected(state, {
             id, selected
         }) {
@@ -43,7 +63,7 @@ const store = new Vuex.Store({
             state.carData[index].selected = selected
         },
 
-        // 设置购物车商品购买数量
+        // 更新购物车商品购买数量
         setGoodsNumber(state, {
             id, number
         }) {
@@ -74,7 +94,7 @@ const store = new Vuex.Store({
             return ids.join(',')
         },
 
-        // 返回一个键值对 {id:number,98：10,88:3}
+        // 构造一个对象： {id:数量} 返回一个键值对 {id:number,98：10,88:3} 
         getGoodsNumberById(state) {
             let idNumMap = {};
             state.carData.forEach(item => {
@@ -83,6 +103,7 @@ const store = new Vuex.Store({
             return idNumMap;
         },
         
+        //  构造一个对象： {id:选中状态}
         getGoodsStatusById(state) {
             let idSelectedMap = {};
             state.carData.forEach(item => {

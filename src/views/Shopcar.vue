@@ -3,8 +3,17 @@
         <van-nav-bar title="购物车" left-text="返回" left-arrow @click-left="$router.back()" />
 
         <!-- 有收货地址 -->
-        <div v-if="carData.length > 0" class="addressWrap">
-
+        <div v-if="carData.length" class="addressWrap">
+            <div v-if="hasAddress" class="address">
+                <van-icon name="location-o" />
+                <div class="info">
+                    <div>{{ address.name }}    {{ address.tel }}   邮编: {{ address.postalCode }}</div>
+                    <div>{{ address.province }} {{ address.city }} {{ address.country }} {{ address.addressDetail }}
+                    </div>
+                </div>
+            </div>
+            <!-- 无设置收货地址 -->
+            <van-button v-else block type="info" @click="$router.push('/addaddress')" plain>添加地址</van-button>
         </div>
 
         <!-- 商品列表 -->
@@ -38,8 +47,7 @@
         </div>
 
         <!-- 订单支付 -->
-        <van-submit-bar :disabled="isDisabled || carData.length === 0 || !$store.getters.getCarSelectedGoodsIds"
-            :price="$store.getters.getTotalPrice" button-text="提交订单" @submit="onSubmit">
+        <van-submit-bar :disabled="isDisabled" :price="$store.getters.getTotalPrice" button-text="提交订单">
             <template #tip>仅支持微信支付</template>
             <template #default>共选中 {{ $store.getters.getCarSelectedTotalNumber }} 件</template>
         </van-submit-bar>
@@ -50,6 +58,7 @@
 // 引入图片
 import emptyCar from '../assets/images/car.png'
 import { fetchCartGoods } from '../api/shopcar.js'
+import { fetchUserAddress } from '../api/user'
 
 export default {
     data() {
@@ -57,25 +66,61 @@ export default {
             emptyCar,
             carData: [],
             ids: this.$store.getters.getCarGoodsIds,
+            address: {}, // 收获地址
+            hasAddress: false, // 记录是否有地址
         }
     },
     computed: {
         isDisabled() {
             console.log(this.$store.state.carData);
-            // 1. 只要含有一个或以上选中 则 返回 false(可用)
-            // 2. 或 只有全部都为false 则 返回 true(禁用用)， 否则返回false(可用)
-            let isDisabled = this.$store.state.carData.every(item => {
-                if (!item.selected) {
-                    return true;
-                }
-                return false;
+            // // 1. 只要含有一个或以上选中 则 返回 false(可用)
+            // // 2. 或 只有全部都为false 则 返回 true(禁用用)， 否则返回false(可用)
+            // let isDisabled = this.$store.state.carData.every(item => {
+            //     if (!item.selected) {
+            //         return true;
+            //     }
+            //     return false;
 
-            })
-            return isDisabled;
+            // })
+            // return isDisabled;
+            if (this.hasAddress === false || this.carData.length === 0) {
+                // 不可用
+                return true;
+            }
+            return false;
         }
     },
-    created() {
+    async created() {
         this._fetchCartGoods();
+        // 获取用户地址
+        let user_id = this.$store.state.userInfo.id;
+        let result = await fetchUserAddress(user_id);
+
+        // 考虑地址多种情况 0个 1个 多个
+        if (result.length === 0) {
+            this.hasAddress = false;
+            this.$dialog({
+                message: '请完善收货地址'
+            })
+            return;
+        } else {
+            this.hasAddress = true;
+        }
+
+        if (result.length === 1) {
+            this.address = result[0];
+            return;
+        }
+
+        // 多个地址取出默认地址作为收货地址（可能无默认地址）
+        let defaultAddress = result.find(item => item.isDisabled == 1);
+        if (defaultAddress) {
+            // 有默认地址
+            this.address = defaultAddress;
+        } else {
+            // 没有默认地址
+            this.address = result[0];
+        }
     },
 
     methods: {
@@ -86,18 +131,6 @@ export default {
             }
             let { message } = await fetchCartGoods(this.ids);
             this.carData = message;
-        },
-
-        // 提交订单
-        async onSubmit() {
-            // 准备好下订单的数据
-            let orderData = {
-                total_price: this.$store.getters.getTotalPrice,
-                number: this.$store.getters.getCarSelectedTotalNumber,
-                goods_ids: this.$store.getters.getCarSelectedGoodsIds
-            };
-
-            this.$toast('提交成功');
         },
 
         // 删除商品
@@ -111,7 +144,7 @@ export default {
 
         // 切换选中不选中
         checkBoxChange(id, selected) {
-            console.log(id, selected);
+            // console.log(id, selected);
             this.$store.commit("setGoodsSelected", { id, selected });
         },
         numberChange(number, id) {
@@ -127,8 +160,27 @@ export default {
     background-color: rgba(234, 231, 231, 0.368627451);
     box-sizing: border-box;
 
+    .addressWrap {
+        .address {
+            display: flex;
+            align-items: center;
+            padding: 4px 10px;
+            background-color: #fff;
+            border-radius: 6px;
+            margin: 6px 0;
+
+            .van-icon {
+                margin-right: 20px;
+                color: red;
+                font-size: 20px;
+            }
+        }
+    }
+
     .cartlist {
-        margin-bottom: 140px;
+        // height: 610px;
+        padding-bottom: 140px;
+        // margin-bottom: 140px;
 
         .item {
             display: flex;
@@ -173,7 +225,7 @@ export default {
                     -webkit-box-orient: vertical;
                     font-size: 14px;
                     color: rgb(78, 78, 78);
-                    margin-top: 7px;
+                    margin-top: 6px;
                 }
 
                 .area {
