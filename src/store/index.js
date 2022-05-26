@@ -70,28 +70,29 @@ const store = new Vuex.Store({
             let index = state.carData.findIndex(item => item.id === id)
             state.carData[index].number = number
         },
+
+        // 清空购物车商品
+        clearCar(state) {
+            state.carData = [];
+        }
     },
 
     getters: {
-        // 获取购物车商品的总数量
-        getCarTotalNumber(state) {
-            let totalNumber = 0;
-            state.carData.forEach(item => totalNumber += item.number)
-            return totalNumber;
-        },
-
         // 获取以逗号分割的商品id 如 88,89
         getCarGoodsIds(state) {
             return state.carData.map(item => item.id).join(',')
         },
 
         // 获取选中的购物车商品id
-        getCarSelectedGoodsIds(state) {
-            let ids = [];
-            state.carData.forEach(item => {
-                item.selected && ids.push(item.id)
-            })
-            return ids.join(',')
+        getCarSelectedGoodsId(state) {
+            // let ids = [];
+            // state.carData.forEach(item => {
+            //     item.selected && ids.push(item.id)
+            // })
+            // return ids.join(',');
+            // 等价于
+            // 链式操作，state.carData.filter(item => item.selected)这里返回一个数组，每个数组里面都有id和状态state，用filter过滤一下，只需要id，再拼接一个字符串join
+            return state.carData.filter(item => item.selected).map(item => item.id).join(',');
         },
 
         // 构造一个对象： {id:数量} 返回一个键值对 {id:number,98：10,88:3} 
@@ -107,15 +108,22 @@ const store = new Vuex.Store({
         getGoodsStatusById(state) {
             let idSelectedMap = {};
             state.carData.forEach(item => {
-                idSelectedMap[item.id] = item.selected
+                idSelectedMap[item.id] = item.selected;
             })
             return idSelectedMap;
         },
         
+        // 获取购物车商品的总数量
+        getCarTotalNumber(state) {
+            let totalNumber = 0;
+            state.carData.forEach(item => totalNumber += item.number);
+            return totalNumber;
+        },
+
         // 获取选中商品数量
         getCarSelectedTotalNumber(state) {
             let totalNumber = 0;
-            state.carData.forEach(item => item.selected && (totalNumber += item.number))
+            state.carData.forEach(item => item.selected && (totalNumber += item.number));
             return totalNumber;
         },
 
@@ -126,7 +134,7 @@ const store = new Vuex.Store({
                 price,
                 number,
                 selected
-            }) => selected && (totalPrice += number * price))
+            }) => selected && (totalPrice += number * price));
             return totalPrice * 100;
         }
     },

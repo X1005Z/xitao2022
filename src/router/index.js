@@ -29,17 +29,19 @@ const router = new VueRouter({
                 component: Home,
                 meta: {
                     name: 'Home',
-                    isMainPage: true
+                    isMainPage: true,
+                    isShowNavBar: false,
                 }
             },
             {
                 path: 'shopcar',
                 component: Shopcar,
                 meta: {
-                    // title: '购物车',
+                    title: '购物车',
                     name: 'Shopcar',
                     isMainPage: true,
                     requireAuth: true, // 此路由需要权限
+                    isShowNavBar: true,
                 }
             },
             {
@@ -49,6 +51,7 @@ const router = new VueRouter({
                     name: 'User',
                     isMainPage: true,
                     requireAuth: true, // 此路由需要权限
+                    isShowNavBar: false,
                 }
             }
         ]
@@ -58,6 +61,7 @@ const router = new VueRouter({
             component: Goodslist,
             meta: {
                 title: '商品列表',
+                isShowNavBar: true,
             }
         },
         {
@@ -65,20 +69,24 @@ const router = new VueRouter({
             component: Order,
             meta: {
                 title: '我的订单',
+                isShowNavBar: true,
             }
         },
         {
             path: '/goodsdetail/:id',
             component: GoodsDetail,
             meta: {
-                title: '商品详情'
+                title: '商品详情',
+                requireAuth: true, // 此路由需要权限
+                isShowNavBar: true,
             }
         },
         {
             path: '/login',
             component: Login,
             meta: {
-                title: '登录'
+                title: '登录',
+                isShowNavBar: true,
             }
         },
         {
@@ -87,6 +95,7 @@ const router = new VueRouter({
             meta: {
                 title: '地址管理',
                 requireAuth: true,
+                isShowNavBar: true,
             }
         },
         {
@@ -95,6 +104,7 @@ const router = new VueRouter({
             meta: {
                 title: '添加地址',
                 requireAuth: true,
+                isShowNavBar: true,
             }
         },
         {
@@ -103,6 +113,7 @@ const router = new VueRouter({
             meta: {
                 title: '编辑地址',
                 requireAuth: true,
+                isShowNavBar: true,
             }
         },
     ]

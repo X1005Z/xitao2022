@@ -31,3 +31,8 @@ export function fetchDelUserAddress(address_id) {
 export function fetchEditUserAddress(address_id, data) {
     return instance.post(`/updateaddress/${address_id}`, data)
 }
+
+// 获取购物车列表内容
+export function fetchCarGoods(goods_id) {
+    return instance.get(`/getshopcarlist/${goods_id}`);
+}

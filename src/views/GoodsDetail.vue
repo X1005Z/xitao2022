@@ -75,7 +75,6 @@ import { ImagePreview } from 'vant';
 import BackTop from '../components/BackTop.vue'
 
 export default {
-    props: ['id'],
     data() {
         return {
             thume: [],

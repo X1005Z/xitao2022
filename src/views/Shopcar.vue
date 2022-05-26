@@ -1,13 +1,11 @@
 <template>
     <div class="cartContainer">
-        <van-nav-bar title="购物车" left-text="返回" left-arrow @click-left="$router.back()" />
-
         <!-- 有收货地址 -->
         <div v-if="carData.length" class="addressWrap">
             <div v-if="hasAddress" class="address">
                 <van-icon name="location-o" />
-                <div class="info">
-                    <div>{{ address.name }}    {{ address.tel }}   邮编: {{ address.postalCode }}</div>
+                <div class="info" @click="$router.push('/address')">
+                    <div>{{ address.name }} {{ address.tel }} 邮编: {{ address.postalCode }}</div>
                     <div>{{ address.province }} {{ address.city }} {{ address.country }} {{ address.addressDetail }}
                     </div>
                 </div>
@@ -18,7 +16,7 @@
 
         <!-- 商品列表 -->
         <div class="cartlist">
-            <div class="item" v-for="(item, index) in  carData" :key="item.id">
+            <div class="item" v-for="(item, index) in  carGoods" :key="item.id">
                 <van-checkbox class="icon" @click="checkBoxChange(item.id, $store.getters.getGoodsStatusById[item.id])"
                     v-model="$store.getters.getGoodsStatusById[item.id]" icon-size='20px' checked-color='#ee0a24' />
                 <!-- 图片 -->
@@ -47,7 +45,7 @@
         </div>
 
         <!-- 订单支付 -->
-        <van-submit-bar :disabled="isDisabled" :price="$store.getters.getTotalPrice" button-text="提交订单">
+        <van-submit-bar :disabled="isDisabled" :price="$store.getters.getTotalPrice" button-text="提交订单" @submit="onSubmit">
             <template #tip>仅支持微信支付</template>
             <template #default>共选中 {{ $store.getters.getCarSelectedTotalNumber }} 件</template>
         </van-submit-bar>
@@ -57,14 +55,17 @@
 <script>
 // 引入图片
 import emptyCar from '../assets/images/car.png'
-import { fetchCartGoods } from '../api/shopcar.js'
-import { fetchUserAddress } from '../api/user'
+import { fetchCarGoods } from '../api/user.js'
+import { fetchUserAddress } from '../api/user.js'
+import { fetchCommitOrder } from '../api/order.js'
+import { getOrderId } from '../utils/tools.js'
 
 export default {
     data() {
         return {
             emptyCar,
-            carData: [],
+            carGoods: [],
+            carData: this.$store.state.carData,
             ids: this.$store.getters.getCarGoodsIds,
             address: {}, // 收获地址
             hasAddress: false, // 记录是否有地址
@@ -80,18 +81,26 @@ export default {
             //         return true;
             //     }
             //     return false;
-
             // })
             // return isDisabled;
-            if (this.hasAddress === false || this.carData.length === 0) {
+
+            if (this.hasAddress === false || this.carData.length === 0 || !this.$store.getters.getCarSelectedGoodsId) {
                 // 不可用
+                // console.log('订单按钮不可用');
                 return true;
             }
+            // console.log('订单按钮可用');
             return false;
         }
     },
     async created() {
-        this._fetchCartGoods();
+        // 获取用户地址
+        if(!this.ids) {
+            return;
+        }
+        // 获取购物车商品
+        this._fetchCarGoods();
+
         // 获取用户地址
         let user_id = this.$store.state.userInfo.id;
         let result = await fetchUserAddress(user_id);
@@ -113,7 +122,8 @@ export default {
         }
 
         // 多个地址取出默认地址作为收货地址（可能无默认地址）
-        let defaultAddress = result.find(item => item.isDisabled == 1);
+        let defaultAddress = result.find(item => item.isDefault == 1);
+
         if (defaultAddress) {
             // 有默认地址
             this.address = defaultAddress;
@@ -125,18 +135,15 @@ export default {
 
     methods: {
         // 购物车没有商品则不请求
-        async _fetchCartGoods() {
-            if (!this.ids) {
-                return;
-            }
-            let { message } = await fetchCartGoods(this.ids);
-            this.carData = message;
+        async _fetchCarGoods() {
+            let { message } = await fetchCarGoods(this.ids);
+            this.carGoods = message;
         },
 
         // 删除商品
         delCartGoods(id, index) {
             // 删除当前data中的商品
-            this.carData.splice(index, 1);
+            this.carGoods.splice(index, 1);
             // 删除vuex
             this.$store.commit('delCartGoods', id);
             console.log(id, index);
@@ -149,6 +156,45 @@ export default {
         },
         numberChange(number, id) {
             this.$store.commit("setGoodsNumber", { number, id });
+        },
+
+        // 提交订单
+        async onSubmit() {
+            // 1. 准备订单参数
+            let orderData = {
+                user_id: this.$store.state.userInfo.id,
+                order_id: getOrderId(),
+                address_id: this.address.id,
+                // 获取选中的商品id
+                goods_ids: this.$store.getters.getCarSelectedGoodsId,
+                // 获取选中的商品总价格
+                total_price: this.$store.getters.getTotalPrice,
+                // 获取选中商品的总数量
+                number: this.$store.getters.getCarSelectedTotalNumber
+            }
+            // console.log(orderData);
+            // 2.调用api
+            // 开启loading（持续提示）
+            this.$toast.loading({
+                duration: 0, // 持续展示 toast
+                forbidClick: true,
+                message: '提交订单中....',
+            })
+            let {message, status} = await fetchCommitOrder(orderData);
+
+            // 关闭loading 
+            this.$toast.clear();
+
+            if(status !== 0) {
+                // 订单异常
+                this.$toast('网络繁忙，请稍后再试');
+                return;
+            }
+
+            // 订单成功后： 1. 清空购物车 2. 并跳转到订单列表
+            this.$store.commit('clearCar');
+            // 直接替换到订单列表，因为购物车已经提交订单了，购物车清空了，没必要返回购物车
+            this.$router.replace('/order');
         }
     }
 }

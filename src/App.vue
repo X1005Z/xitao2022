@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <!-- navbar -->
-        <van-nav-bar :title="title" left-text="返回" v-show="isShowNavbar" @click-left="$router.back()" left-arrow>
+        <van-nav-bar :title="title" v-show="isShowNavbar" @click-left="$router.back()" left-arrow>
         </van-nav-bar>
 
         <!-- 匹配根路由 -->
@@ -23,13 +23,9 @@ export default {
             handler: function (newRoute, oldRoute) {
                 // console.log(app-watch);
                 // 是主页则隐藏navbar，否则显示
-                let { isMainPage, title } = newRoute.meta;
+                let { isMainPage, title, isShowNavBar } = newRoute.meta;
                 this.title = title;
-                if (isMainPage) {
-                    this.isShowNavbar = false;
-                } else {
-                    this.isShowNavbar = true;
-                }
+                this.isShowNavbar = isShowNavBar
             },
             // 立即执行（刷新也会执行）
             immediate: true,
