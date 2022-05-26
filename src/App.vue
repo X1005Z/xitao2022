@@ -5,7 +5,9 @@
         </van-nav-bar>
 
         <!-- 匹配根路由 -->
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
     </div>
 </template>
 

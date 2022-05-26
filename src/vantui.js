@@ -3,7 +3,7 @@ import 'vant/lib/index.css';
 
 import {
     Button, Tabbar, TabbarItem, NavBar, Search, Swipe, SwipeItem, Toast, Sticky, Grid, GridItem, Divider, Lazyload, List, PullRefresh, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku,
-    Empty, SubmitBar, Card, Stepper, Checkbox, Image as VanImage, Icon, Cell, CellGroup, Form, Field, AddressList, AddressEdit, Area, Tab, Tabs, 
+    Empty, SubmitBar, Card, Stepper, Checkbox, Image as VanImage, Icon, Cell, CellGroup, Form, Field, AddressList, AddressEdit, Area, Tab, Tabs, Tag, Popup, Step, Steps, 
 } from 'vant';
 
 Vue.use(Button);
@@ -45,4 +45,8 @@ Vue.use(AddressList);
 Vue.use(Area);
 Vue.use(Tab);
 Vue.use(Tabs);
+Vue.use(Tag);
+Vue.use(Popup);
+Vue.use(Step);
+Vue.use(Steps);
 

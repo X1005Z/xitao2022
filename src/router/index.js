@@ -9,6 +9,7 @@ import User from "../views/User.vue"
 import Index from "../views/Index.vue"
 import Goodslist from "../views/Goodslist.vue"
 import Order from "../views/Order.vue"
+import OrderDetail from '../views/OrderDetail.vue'
 import Address from '../views/Address.vue'
 import AddAddress from '../views/AddAddress.vue'
 import EditAddress from '../views/EditAddress.vue'
@@ -116,6 +117,15 @@ const router = new VueRouter({
                 isShowNavBar: true,
             }
         },
+        {
+            path: '/orderDetail/:order_id',
+            component: OrderDetail,
+            meta: {
+                title: '订单详情',
+                requireAuth: true,
+                isShowNavBar: true,
+            }
+        }
     ]
 })
 

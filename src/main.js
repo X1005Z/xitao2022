@@ -15,8 +15,15 @@ import router from './router/index.js'
 // 导入仓库store
 import store from './store/index.js'
 
+// 导入vue-clipboard2
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard);
+
 // 导入nprogress的css样式
 import '../node_modules/nprogress/nprogress.css'
+
+
 
 new Vue({
   store,
