@@ -22,6 +22,7 @@ Vue.use(VueClipboard);
 
 // 导入nprogress的css样式
 import '../node_modules/nprogress/nprogress.css'
+import './assets/css/iconfont.css'
 
 
 

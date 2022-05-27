@@ -6,7 +6,7 @@
                 <div class="logoWrap">
                     <img src="../assets/images/logo.png" alt="">
                 </div>
-                <van-search placeholder="橘朵眼影" />
+                <van-search @focus="$router.push('/home/index/search')" placeholder="橘朵眼影" />
             </div>
         </van-sticky>
 
@@ -35,7 +35,10 @@
         </div>
 
         <!-- backTop组件 -->
-        <BackTop :scrollTop="300" />
+        <BackTop :scrollTop="200" />
+
+        <!-- 显示子路由内容 -->
+        <router-view></router-view>
     </div>
 
 </template>

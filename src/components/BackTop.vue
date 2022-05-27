@@ -1,5 +1,5 @@
 <template>
-    <div class="BackTop" v-show="isShow" @click="goTop">
+    <div class="BackTop" v-if="isShow" @click="goTop">
         <slot>
             <img src="../assets/images/backtop.png" alt="">
         </slot>
@@ -7,11 +7,14 @@
 </template>
 
 <script>
+// 节流函数优化回到顶部
+import { throttle } from '../utils/tools.js'
+
 export default {
     props: {
         scrollTop: {
             type: Number,
-            default: 500
+            default: 300
         }
     },
     data() {
@@ -25,7 +28,7 @@ export default {
         scrollHandle(event) {
             let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
             // console.log('scrollTop:', scrollTop);
-            if(scrollTop >= this.scrollTop) {
+            if (scrollTop >= this.scrollTop) {
                 this.isShow = true;
             } else {
                 this.isShow = false;
@@ -38,7 +41,7 @@ export default {
     },
     mounted() {
         // 绑定滚动事件
-        document.addEventListener('scroll', this.scrollHandle);
+        document.addEventListener('scroll', throttle(this.scrollHandle, 100));
     },
     destroyed() {
         // 解绑滚动事件
@@ -48,15 +51,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .BackTop {
-        position: fixed;
-        right: 8px;
-        bottom: 120px;
-        width: 38px;
-        height: 38px;
+.BackTop {
+    position: fixed;
+    right: 8px;
+    bottom: 120px;
+    width: 38px;
+    height: 38px;
 
-        img {
-            width: 100%;
-        }
+    img {
+        width: 100%;
     }
+}
 </style>
