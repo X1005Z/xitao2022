@@ -44,9 +44,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app {
+.van-tabbar {
     min-width: 320px;
     max-width: 750px;
-    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
 }
 </style>

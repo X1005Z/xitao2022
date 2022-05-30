@@ -16,7 +16,7 @@
 
         <!-- 商品列表 -->
         <div class="cartlist">
-            <div class="item" v-for="(item, index) in  carGoods" :key="item.id">
+            <div class="item" v-for="(item, index) in carGoods" :key="item.id">
                 <van-checkbox class="icon" @click="checkBoxChange(item.id, $store.getters.getGoodsStatusById[item.id])"
                     v-model="$store.getters.getGoodsStatusById[item.id]" icon-size='20px' checked-color='#ee0a24' />
                 <!-- 图片 -->

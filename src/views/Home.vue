@@ -69,12 +69,12 @@ export default {
             gridData: [
                 { src: menu1, text: '喜淘超市', to: "/goodslist" },
                 { src: menu3, text: '喜淘生鲜', to: "/goodslist" },
-                { src: menu7, text: '领红包', to: "/goodslist"  },
-                { src: menu5, text: '美妆好物', to: "/goodslist"  },
+                { src: menu7, text: '领红包', to: "/goodslist" },
+                { src: menu5, text: '美妆好物', to: "/goodslist" },
                 { src: menu2, text: '爆款', to: '/goodslist' },
-                { src: menu4, text: '喜淘缴费', to: "/goodslist"  },
-                { src: menu6, text: '签到领豆', to: "/goodslist"  },
-                { src: menu8, text: '更多', to: "/goodslist"  },
+                { src: menu4, text: '喜淘缴费', to: "/goodslist" },
+                { src: menu6, text: '签到领豆', to: "/goodslist" },
+                { src: menu8, text: '更多', to: "/goodslist" },
             ],
             goodsList: [],
         }
@@ -98,7 +98,7 @@ export default {
         },
 
         // 点击推荐商品跳转
-        clickHandle({data}) {
+        clickHandle({ data }) {
             // 跳转到商品详情页
             this.$router.push(`/goodsDetail/${data.id}`);
         }
@@ -112,6 +112,7 @@ export default {
 
 <style lang="scss" scoped>
 .homeContainer {
+    position: relative;
     padding-bottom: 50px;
     font-size: 14px;
     color: #666;

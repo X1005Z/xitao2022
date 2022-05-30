@@ -11,6 +11,7 @@ const store = new Vuex.Store({
         carData: [],
         token: '',
         userInfo: {},
+        // allOrderGoods: [],
     },
     mutations: {
         // 设置token
@@ -74,7 +75,12 @@ const store = new Vuex.Store({
         // 清空购物车商品
         clearCar(state) {
             state.carData = [];
-        }
+        },
+
+        // // 删除订单商品
+        // delOrder(state, id) {
+        //     state.allOrderGoods = state.allOrderGoods.filter(item => item.id !== id);
+        // },
     },
 
     getters: {

@@ -111,6 +111,10 @@ export default {
             }
         }
 
+        .username {
+            margin-top: 40px;
+        }
+
         .van-icon {
             bottom: 35px;
             right: -20px;
