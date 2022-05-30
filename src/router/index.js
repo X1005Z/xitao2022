@@ -17,6 +17,7 @@ import AddAddress from '../views/AddAddress.vue'
 import EditAddress from '../views/EditAddress.vue'
 import GoodsDetail from '../views/GoodsDetail.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 
 import NProgress from 'Nprogress'  // esm
 
@@ -107,6 +108,14 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/register',
+            component: Register,
+            meta: {
+                title: '注册',
+                isShowNavBar: true,
+            }
+        },
+        {
             path: '/address',
             component: Address,
             meta: {
@@ -141,7 +150,7 @@ const router = new VueRouter({
                 requireAuth: true,
                 isShowNavBar: true,
             }
-        }, 
+        },
         {
             path: '/search-result/:keyword',
             component: SearchResult,

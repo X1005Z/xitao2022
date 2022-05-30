@@ -8,6 +8,7 @@
                 <van-button round block type="info" native-type="submit">提交</van-button>
             </div>
         </van-form>
+        <router-link tag="div" :to="{path: '/register'}" class="text-center color">没有账号？去注册</router-link>
     </div>
 </template>
 
@@ -46,6 +47,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    .color {
+        color: gray;
+        font-size: 14px;
+    }
 </style>

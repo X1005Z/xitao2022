@@ -1,5 +1,6 @@
 import instance from './request.js'
 
+// 登录
 export function fetchLogin(username, password) {
     return instance.post('/login', {
         username,
@@ -35,4 +36,13 @@ export function fetchEditUserAddress(address_id, data) {
 // 获取购物车列表内容
 export function fetchCarGoods(goods_id) {
     return instance.get(`/getshopcarlist/${goods_id}`);
+}
+
+// 注册
+export function fetchRegister(username, password, repassword) {
+    return instance.post('/register', {
+        username,
+        password,
+        repassword
+    })
 }
