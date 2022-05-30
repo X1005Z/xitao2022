@@ -156,7 +156,7 @@ const router = new VueRouter({
             component: SearchResult,
             meta: {
                 title: '搜索结果',
-                isShowNavBar: false,
+                isShowNavBar: false
             }
         }
     ]

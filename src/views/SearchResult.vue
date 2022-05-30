@@ -1,7 +1,6 @@
 <template>
     <div class="search-result">
-        <van-search v-model="keyword" show-action placeholder="请输入搜索关键词" @search="onSearch" @cancel="$router.back()">
-        </van-search>
+        <van-search v-model="keyword" show-action placeholder="请输入搜索关键词" @search="onSearch" @cancel="$router.back()"></van-search>
 
         <van-dropdown-menu v-if="goodsList.length > 0">
             <van-dropdown-item @change="change" v-model="sort" :options="options1"></van-dropdown-item>

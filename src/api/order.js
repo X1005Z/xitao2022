@@ -17,7 +17,7 @@ export function fetchOrderDetail(order_id) {
 
 // 模拟用户支付订单成功
 export function fetchPayOrder(order_id) {
-    return instance.post(`/payorder/${order_id}`)
+    return instance.post(`/payorder/${order_id}`);
 }
 
 // 物流信息

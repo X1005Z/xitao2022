@@ -7,7 +7,7 @@
 </template>
 
 <script>
-// 节流函数优化回到顶部
+// 优化回到顶部-节流函数
 import { throttle } from '../utils/tools.js'
 
 export default {

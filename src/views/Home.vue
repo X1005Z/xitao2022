@@ -29,7 +29,6 @@
 
         <!-- 商品列表 -->
         <van-divider>推荐商品</van-divider>
-
         <div class="goodslist">
             <Goods v-for="item in goodsList" :key="item.id" :data="item" @goodClick="clickHandle" />
         </div>

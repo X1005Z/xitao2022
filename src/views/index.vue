@@ -37,7 +37,7 @@ export default {
             },
 
             // 立即执行（刷新也会执行）
-            immediate: true
+            immediate: true,
         }
     }
 }

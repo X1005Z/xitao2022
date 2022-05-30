@@ -21,6 +21,7 @@
                         <!-- 方式一 -->
                         <!-- <i @click="isEyeOpen = !isEyeOpen" :class="['iconfont', isEyeOpen ? 'icon-yanjing' : 'icon-guanbi-yanjing']"></i> -->
 
+
                         <!-- 方式二（推荐） -->
                         <i :class="['iconfont', className]" @click="isEyeOpen = !isEyeOpen"></i>
                     </div>

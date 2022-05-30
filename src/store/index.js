@@ -11,7 +11,6 @@ const store = new Vuex.Store({
         carData: [],
         token: '',
         userInfo: {},
-        // allOrderGoods: [],
     },
     mutations: {
         // 设置token
