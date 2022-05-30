@@ -26,7 +26,7 @@
                             <van-button size="mini" @click.stop="callPhone" type="danger">客服
                             </van-button>
                         </template>
-                        <van-button type="danger" size="mini" @click.stop="delOrder(item.id, index)">删除订单</van-button>
+                        <!-- <van-button type="danger" size="mini" @click.stop="delOrder(item.id, index)">删除订单</van-button> -->
                     </template>
                 </van-card>
             </van-tab>
