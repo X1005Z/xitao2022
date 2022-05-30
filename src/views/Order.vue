@@ -2,7 +2,7 @@
     <div class="">
         <van-tabs v-model="active" @change="changeTab">
             <van-tab v-for="item in tabs" :key="item.text" :title="item.text">
-                <van-card v-for="(item, index) in filterOrderGoods" :key="item.order_id"
+                <van-card v-for="item in filterOrderGoods" :key="item.order_id"
                     @click="$router.push('/orderdetail/' + item.order_id)" :num="item.number" :price="item.total_price"
                     :title="item.goods[0].title" :thumb="item.goods[0].thumb_path">
                     <template #tags>
