@@ -17,7 +17,8 @@ export default {
     data() {
         return {
             isShowNavbar: false,
-            title: '喜淘'
+            title: '喜淘',
+            netStatus: window.navigator.onLine,
         }
     },
     watch: {
@@ -31,8 +32,33 @@ export default {
             },
             // 立即执行（刷新也会执行）
             immediate: true,
+        },
+
+        // 监听网络变化
+        netStatus: {
+            handler: function (newStatus, oldStatus) {
+                console.log('watch:', newStatus);
+                if(newStatus === true) {
+                    this.$dialog.alert({message: '网络连接成功'});
+                } else {
+                    this.$dialog.alert({message: '网络异常，请检查网络'});
+                }
+            },
+            // 立即执行（刷新也会执行）
+            // immediate: true,
         }
-    }
+    },
+    mounted() {
+        // 监听网络状态的改变
+        window.addEventListener('online', this.updataNetStatus);
+        window.addEventListener('offline', this.updataNetStatus);
+    },
+    methods: {
+        updataNetStatus(e) {
+            const {type} = e;
+            this.netStatus = type === 'online' ? true : false;
+        }
+    },
 }
 </script>
 

@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import { fetchUserOrder } from "../api/order.js"
-import { fetchCarGoods } from "../api/user.js"
+import { fetchUserOrder } from "../api/order"
+import { fetchCarGoods } from "../api/user"
 export default {
     data() {
         return {

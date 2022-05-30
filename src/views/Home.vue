@@ -44,7 +44,10 @@
 
 <script>
 // 导入接口
-import { fetchLunbo, fetchRecommendGoods } from '../api/home.js'
+// @ => /src, @api => /src/api
+// import { fetchLunbo, fetchRecommendGoods } from '../api/home.js'
+import { fetchLunbo, fetchRecommendGoods } from '@api/home'
+
 
 // 导入组件
 import Goods from '../components/Goods.vue'

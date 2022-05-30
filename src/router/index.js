@@ -18,6 +18,8 @@ import EditAddress from '../views/EditAddress.vue'
 import GoodsDetail from '../views/GoodsDetail.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Test from '../views/Test.vue'
+
 
 import NProgress from 'Nprogress'  // esm
 
@@ -157,6 +159,14 @@ const router = new VueRouter({
             meta: {
                 title: '搜索结果',
                 isShowNavBar: false
+            }
+        },
+        {
+            path: '/test',
+            component: Test,
+            meta: {
+                title: '测试',
+                isShowNavBar: true,
             }
         }
     ]
