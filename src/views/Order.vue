@@ -1,8 +1,8 @@
 <template>
-    <div class="">
-        <van-tabs v-model="active" @change="changeTab">
+    <div class="app">
+        <van-tabs v-model="active" @change="changeTab" class="tabs-background-color">
             <van-tab v-for="item in tabs" :key="item.text" :title="item.text">
-                <van-card v-for="item in filterOrderGoods" :key="item.order_id"
+                <van-card class="card-background-color" v-for="item in filterOrderGoods" :key="item.order_id"
                     @click="$router.push('/orderdetail/' + item.order_id)" :num="item.number" :price="item.total_price"
                     :title="item.goods[0].title" :thumb="item.goods[0].thumb_path">
                     <template #tags>
@@ -17,7 +17,7 @@
                         <van-button v-if="item.status === 0" size="mini" type="danger">立即付款</van-button>
                         <!-- is_out 0-未发货 1-已发货 默认0 -->
                         <van-button v-if="item.is_out === 1 && item.status == 1 && item.is_take == 0" size="mini"
-                            type="primary">物流信息</van-button>
+                            type="primary">查看物流</van-button>
                         <van-button v-if="item.status === 0" size="mini" type="danger" v-clipboard:copy="item.order_id"
                             v-clipboard:success="copy">复制订单号</van-button>
                         <template v-if="item.status === 2">
@@ -132,4 +132,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tabs-background-color {
+    background-color: rgb(242, 242, 242);
+
+    .card-background-color {
+        background-color: rgb(255, 255, 255);
+        border-radius: 16px;
+        margin-top: 8px;
+    }
+}
 </style>

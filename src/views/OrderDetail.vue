@@ -61,7 +61,7 @@
         <!-- 订单的一些操作按钮 -->
         <div class="btns">
             <van-button size="mini" v-if="orderInfo.status === 0" @click="pay" type="danger">立即付款</van-button>
-            <van-button size="mini" v-if="orderInfo.is_out === 1" @click="showWuliu">物流信息</van-button>
+            <van-button size="mini" v-if="orderInfo.is_out === 1" @click="showWuliu">查看物流</van-button>
             <van-button size="mini" v-if="orderInfo.is_out === 0 && orderInfo.status === 1" type="danger">提醒发货
             </van-button>
             <template v-if="orderInfo.status === 2">
