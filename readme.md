@@ -85,3 +85,18 @@ SKU（Stock Keeping Unit）：商品（产品和规格（属性） 如iphone6 + 
     - 深度（源码 mvvm、vue2：Object.definedProperty、vue3 proxy)
     - 看牛人博客，知乎，优秀博客、google
 
+## github搜索技巧，很重要！！！！
+1. 在vite.config.js中如果有哪些不会用的，可以直接上gitHub官网上，看别人已经配置好的
+2. 配置一般写在vite.config.js中，在gitHub中查找时不能直接查vite.config.js，这样查的话是找项目目；要找配置的话要filename:vite.config.js stars:>200 （filename：文件名，stars:>200：点赞量超过200的意思，是筛选项，可加可不加）
+比如：要查找vue中的v-for怎么使用，可以输入以下语法：filename:*.vue v-for
+
+> 在gitHub上搜索信息：https://docs.github.com/cn/search-github
+
+3. 在线web vscode查看源码： . （一个点），在github页面搜索想要的源码关键词，然后点进去，再按一个英文符号的. ，就可以在web vscode查看源码了（只能读，不能改）
+
+## gitHub在线查看源码和构建项目
+在自己的github账号中，找出自己的公有仓库（私有打不开），在原网址前添加gitpod.io/#/，即可打开web vscode 在线编辑，查看项目运行
+比如：原网址：https://github.com/X1005Z/xitao2022
+新网址：https://gitpod.io/#/github.com/X1005Z/xitao2022
+
+> 只可以修改自己的，不可以修改别人的，只能看，不能改 
